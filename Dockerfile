@@ -8,4 +8,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD [uvicorn src.api_app:app --host 0.0.0.0 --port 8091]
+# Запускаем приложение
+CMD ["uvicorn", "src.api_app_titanic:app", "--host", "0.0.0.0", "--port", "8091"]
