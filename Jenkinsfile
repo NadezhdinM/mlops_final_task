@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        JENKINS_HOME = "$JENKINS_HOME"
-        BUILD = "${JENKINS_HOME}/workspace/mlops_final"
-    }
-
     stages {
          stage('Start') {
             steps {
@@ -24,7 +19,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/NadezhdinM/mlops_final_task.git'
+                    git branch: 'main', url: 'https://github.com/NadezhdinM/mlops_final_task'
                 }
             }
         }
@@ -32,7 +27,11 @@ pipeline {
         stage('Setup Virtual Environment') {
             steps {
                 script {
-                    bat 'python -m venv venv'
+                    if (isUnix()) {
+                        sh 'python -m venv venv'
+                    } else {
+                        bat 'python -m venv venv'
+                    }
                 }
             }
         }
@@ -40,7 +39,11 @@ pipeline {
         stage('Activate venv') {
             steps {
                 script {
-                    bat '.\\venv\\scripts\\activate.bat'
+                    if (isUnix()) {
+                        sh './venv/scripts/activate.bat'
+                    } else {
+                        bat '.\\venv\\scripts\\activate.bat'
+                    }
                 }
             }
         }
@@ -48,7 +51,11 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    bat 'pip install -r requirements.txt'
+                    if (isUnix()) {
+                        sh 'pip install -r requirements.txt'
+                    } else {
+                        bat 'pip install -r requirements.txt'
+                    }
                 }
             }
         }
@@ -100,7 +107,11 @@ pipeline {
         stage('Build Docker image') {
             steps {
                  script {
-                    bat "docker build -t titanic-img -f Dockerfile ."
+                    if (isUnix()) {
+                        sh 'docker build -t titanic-img .'
+                    } else {
+                        bat "docker build -t titanic-img -f Dockerfile ."
+                    }
                  }
             }
         }

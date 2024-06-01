@@ -9,7 +9,7 @@ import pickle
 
 # Получаем правильные пути
 SCRIPTS_PATH = os.path.dirname(os.path.abspath(__file__))      # Каталог со скриптами
-PROJECT_PATH = os.path.dirname(SCRIPTS_PATH)                   # Каталог проекта
+PROJECT_PATH = os.path.dirname(SCRIPTS_PATH)                   # Каталог проек
 # Пути к датасетам и моделям
 DATASETS_PATH = PROJECT_PATH + "/datasets/"
 
